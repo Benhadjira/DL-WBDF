@@ -9,26 +9,21 @@ from skimage.util import view_as_blocks
 
 
 def load_edf_images(directory, pat, scan=00, nb=31):
-    # Load images, normalize them, and log-transform the data
     images = [np.log(fabio.open(pat.format(i=i, scan=scan)).data) for i in range(nb)]
     return np.array(images)
 
 def process_images(images):
     processed_images = []
     for image in images:
-        # Compute mean intensity
+        
         mean_intensity = np.mean(image)
         
-        # Subtract mean intensity to calculate background
         background = image - mean_intensity
         
-        # Ensure non-negative values
         background[background < 0] = 0
         
-        # Normalize the background
         normalized = background / np.max(background)
         
-        # Append the processed image
         processed_images.append(normalized)
     
     return np.array(processed_images)
@@ -140,9 +135,9 @@ def reconstruct_image_with_background(patches, labels, original_shape, patch_siz
     patch_idx = 0
     for i in range(0, original_shape[0], patch_size[0]):
         for j in range(0, original_shape[1], patch_size[1]):
-            if labels[patch_idx] == 0:  # Use weak beam patches
+            if labels[patch_idx] == 0:  
                 reconstructed_image[i:i + patch_size[0], j:j + patch_size[1]] = patches[patch_idx]
-            else:  # Replace with background intensity patch
+            else:  
                 reconstructed_image[i:i + patch_size[0], j:j + patch_size[1]] = background_intensity
             patch_idx += 1
     return reconstructed_image
@@ -158,9 +153,9 @@ def normalize_image(image):
     Returns:
         np.array: Normalized image.
     """
-    image -= np.min(image)  # Shift to make the minimum 0
-    image /= np.max(image)  # Scale to make the maximum 1
-    image *= 255  # Scale to the range [0, 255]
+    image -= np.min(image)  
+    image /= np.max(image)  
+    image *= 255 
     return image.astype(np.uint8)
 
 
