@@ -6,6 +6,7 @@ This repository provides the implementation for DL-WBDF, a deep learning-based p
 This code was developed as part of my PhD research at Université Grenoble Alpes and the ID03 beamline at the European Synchrotron Radiation Facility (ESRF).
 
 Funding Acknowledgement:
+
 This project has been partly funded by the European Union’s Horizon 2020 Research and Innovation Programme under the Marie Sklodowska-Curie COFUND scheme with grant agreement No. 101034267
 and the European Research Council (ERC) under the European Union’s Horizon 2020 Research and Innovation Programme (grant agreement No. 10116911)
 
